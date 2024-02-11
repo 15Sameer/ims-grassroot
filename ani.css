@@ -131,3 +131,8 @@ input[type=text]:focus, input[type=password]:focus {
 .button:active{
     opacity:0.5;
 }
+@media only screen and (max-width:600px){
+    form{
+        width:100% !important
+    }
+}
