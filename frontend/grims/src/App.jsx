@@ -1,14 +1,8 @@
-import { useState } from "react";
-import Navbar from "./assets/components/navbar";
+import React from "react";
+import InputDesign from "./InputDesign"; 
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  return (
-    <>
-      <Navbar />
-    </>
-  );
+  return <InputDesign />; 
 }
 
 export default App;
