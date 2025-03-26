@@ -1,0 +1,140 @@
+/* src/admin/DriverPortal.module.css */
+
+/* 
+  BRAND COLORS:
+  Primary: #37bfc5, #881be5
+  Secondary: #57a2d8, #181616, #52595e, #fbfcfe, #969799, #456a8b
+*/
+
+.driverPortal {
+    background-color: #fbfcfe; /* Secondary very light background */
+    min-height: 100vh;
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Page Title */
+  .title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #181616; /* Secondary dark */
+    margin-bottom: 10px;
+  }
+  
+  /* Subtitle or description */
+  .subtitle {
+    font-size: 16px;
+    color: #52595e; /* Secondary grey */
+    margin-bottom: 30px;
+    max-width: 600px;
+  }
+  
+  /* Container for the assignment cards */
+  .assignmentList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  
+  /* Individual card styling */
+  .assignmentCard {
+    background-color: #fff;
+    border: 1px solid #969799; /* Secondary grey */
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .assignmentCard:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Card Header */
+  .cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  
+  .cardHeader h2 {
+    margin: 0;
+    color: #181616;
+    font-size: 18px;
+  }
+  
+  /* Status badges */
+  .statusPending {
+    background-color: #881be5; /* Primary */
+    color: #fbfcfe;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .statusInProgress {
+    background-color: #57a2d8; /* Secondary lighter blue */
+    color: #fbfcfe;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .statusCompleted {
+    background-color: #37bfc5; /* Primary */
+    color: #fbfcfe;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  /* Card Text */
+  .infoText {
+    margin: 5px 0;
+    color: #181616;
+  }
+  
+  /* Button group for status updates */
+  .buttonGroup {
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  /* Base button style */
+  .btn {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 5px;
+    color: #fbfcfe;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  /* Different button states */
+  .btnSecondary {
+    background-color: #456a8b; /* Secondary darkish blue */
+  }
+  .btnSecondary:hover {
+    background-color: #52595e; /* Another secondary grey */
+  }
+  
+  .btnInProgress {
+    background-color: #57a2d8; /* Secondary lighter blue */
+  }
+  .btnInProgress:hover {
+    background-color: #37bfc5; /* Primary */
+  }
+  
+  .btnSuccess {
+    background-color: #37bfc5; /* Primary */
+  }
+  .btnSuccess:hover {
+    background-color: #881be5; /* Primary alternate */
+  }
+  
