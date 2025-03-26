@@ -1,0 +1,172 @@
+
+.dashboard {
+  padding: 20px;
+  background-color: #ffffff;
+  flex: 1;
+  margin-left: 250px; 
+  transition: margin-left 0.3s ease; 
+}
+
+
+@media (max-width: 768px) {
+  .dashboard {
+    margin-left: 0;
+  }
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px; 
+  border-bottom: 1px solid #e0e0e0; 
+}
+
+.dashboard-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333333; 
+}
+
+.overview-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 16px;
+  margin-top: 20px;
+}
+
+/* Individual card styling */
+.card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 16px; 
+  display: flex;
+  flex-direction: column; 
+  justify-content: space-between;
+  align-items: flex-start; 
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 4px 0px; /* More subtle shadow */
+  height: 120px; /* Fixed height for all cards */
+}
+
+.card-content p {
+  font-size: 14px; 
+  color: #757575; 
+  margin-bottom: 4px; 
+}
+
+.card-content h2 {
+  font-size: 24px; 
+  margin: 0; 
+}
+
+.card-icon {
+  font-size: 24px; 
+  color: #757575; 
+}
+
+.pending-clients {
+  background-color: #b2ebf2; 
+}
+
+.orders-progress {
+  background-color: #c8e6c9; 
+}
+
+.deliveries-today {
+  background-color: #bbdefb; 
+}
+
+.low-stock-alerts {
+  background-color: #f0f4c3; 
+}
+
+/* Bottom section styling */
+.dashboard-bottom {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Equal columns */
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Performance overview container */
+.performance-overview {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 4px 0px; /* Subtle shadow */
+}
+
+.performance-overview h3 {
+  font-size: 16px; 
+  margin-bottom: 15px; 
+}
+
+#performanceChart {
+  height: 250px; /* Height of the chart container */
+}
+
+
+.notifications {
+  background-color: white; 
+  border-radius: 8px; 
+  padding: 20px; 
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 10px 0px ; 
+  overflow: scroll;
+}
+
+.notifications h3 {
+  font-size: 16px; 
+  margin-bottom: 15px; 
+}
+
+.notifications ul {
+  list-style: none; 
+  padding: 0; 
+}
+
+.notifications li {
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  box-shadow:  2px 2px  rgba(0,0,0,0.25);
+  font-size: 14px; 
+  color: #555;
+}
+
+.notifications li:last-child {
+  margin-bottom: 0; 
+}
+
+.notifications li strong {
+  color: #333; 
+  font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+  .overview-cards {
+    grid-template-columns: repeat(2, 1fr); 
+  }
+
+  .dashboard-bottom {
+    grid-template-columns: 1fr; 
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    margin-left: 80px; 
+  }
+
+  .overview-cards {
+    grid-template-columns: 1fr; 
+  }
+
+  .dashboard-header {
+    flex-direction: column; 
+    align-items: flex-start;
+  }
+
+  .dashboard-title {
+    font-size: 20px; 
+  }
+}

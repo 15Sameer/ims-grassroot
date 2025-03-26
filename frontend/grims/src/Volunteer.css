@@ -1,0 +1,105 @@
+/* Volunteer Page Container */
+.volunteer-page {
+    padding: 20px;
+    background-color: #ffffff;
+    flex: 1;
+    margin-left:250px;
+  }
+  @media (width<=661px)
+  {
+    .volunteer-page{
+      margin-left: 100px;
+    }
+  }
+  @media (width<=991px)
+  {
+    .volunteer-page{
+      margin-left: 100px;
+    }
+  }
+  
+  /* Volunteer Title */
+  .volunteer-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 20px;
+  }
+  
+  /* Volunteer Section */
+  .volunteer-section {
+    margin-bottom: 30px;
+  }
+  
+  .volunteer-section h2 {
+    font-size: 20px;
+    color: #4caf50; /* Green color for headings */
+    margin-bottom: 10px;
+  }
+  
+  .volunteer-section p {
+    font-size: 14px;
+    color: #888888;
+    margin-bottom: 10px;
+  }
+  
+  /* Volunteer Button */
+  .volunteer-button {
+    background-color: #4caf50; /* Green button */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .volunteer-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
+  
+  /* Volunteer List */
+  .volunteer-list {
+    margin-top: 10px;
+  }
+  
+  .volunteer-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f5f5f5; /* Light gray background */
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .volunteer-item span {
+    font-size: 14px;
+    color: #333333;
+  }
+  
+  .volunteer-item .status {
+    color: #757575; /* Gray color for status */
+    font-style: italic;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .volunteer-section h2 {
+      font-size: 18px;
+    }
+  
+    .volunteer-button {
+      width: 100%; /* Full-width button on mobile */
+    }
+  
+    .volunteer-item {
+      flex-direction: column; /* Stack items vertically on mobile */
+      align-items: flex-start;
+    }
+  
+    .volunteer-item .status {
+      margin-top: 5px; /* Add space between text and status */
+    }
+  }
