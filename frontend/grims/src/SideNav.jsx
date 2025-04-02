@@ -40,13 +40,13 @@ const Sidenav = () => {
           <li className={`menu-item ${isActive('/volunteer')}`} onClick={() => handleNavigation('/volunteer')}>
             <span className="icon">👤</span> Volunteers
           </li>
-          <li className="menu-item" onClick={() => handleNavigation('/orders')}>
+          <li className={`menu-item ${isActive('/orders')}`} onClick={() => handleNavigation('/orders')}>
             <span className="icon">📋</span> Orders Status
           </li>
-          <li className="menu-item" onClick={() => handleNavigation('/stock')}>
+          <li className={`menu-item ${isActive('/updatestock')}`} onClick={() => handleNavigation('/updatestock')}>
             <span className="icon">🔄</span> Update Stock
           </li>
-          <li className="menu-item" onClick={() => handleNavigation('/report')}>
+          <li className={`menu-item ${isActive('/reports')}`} onClick={() => handleNavigation('/reports')}>
             <span className="icon">📊</span> Report
           </li>
         </ul>

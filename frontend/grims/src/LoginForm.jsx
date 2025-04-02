@@ -8,15 +8,14 @@ function LoginForm({ type, title, idLabel, buttonColor }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [isSlided, setIsSlided] = useState(false);
-  const navigate = useNavigate(); // Initialize navigation
+  const [loginMode, setLoginMode] = useState(type); 
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    // Redirect to dashboard upon successful login
     navigate("/dashboard"); 
   };
-
+  const handleLoginModeChange = (mode) => setLoginMode(mode);
   const handleFlip = () => setIsFlipped(!isFlipped);
   const handleRememberMeChange = () => setRememberMe(!rememberMe);
   const handleSlide = () => setIsSlided(!isSlided);
@@ -27,7 +26,7 @@ function LoginForm({ type, title, idLabel, buttonColor }) {
         type === "volunteer" ? styles.volunteer : ""
       }`}
     >
-      {/* Slide Card */}
+      {/* Slide Card - Only for Volunteer */}
       {(type === "volunteer" || isSlided) && (
         <section className={styles.slidecard}>
           {/* Floating Card Above Volunteer Form */}
@@ -42,6 +41,27 @@ function LoginForm({ type, title, idLabel, buttonColor }) {
       <section className={styles.formCard}>
         <h2 className={styles.formTitle}>{title}</h2>
         <div className={styles.divider} />
+        
+        {/* Login Mode Toggle - Only shown for Admin */}
+        {type === "admin" && (
+          <div className={styles.loginModeToggle}>
+            <button
+              type="button"
+              className={`${styles.modeButton} ${loginMode === 'admin' ? styles.activeMode : ''}`}
+              onClick={() => handleLoginModeChange('admin')}
+            >
+              Login as Admin
+            </button>
+            <button
+              type="button"
+              className={`${styles.modeButton} ${loginMode === 'volunteer' ? styles.activeMode : ''}`}
+              onClick={() => handleLoginModeChange('volunteer')}
+            >
+              Login as Volunteer
+            </button>
+          </div>
+        )}
+
         <form onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>
             <label htmlFor={`${type}-id`} className={styles.inputLabel}>
@@ -57,8 +77,8 @@ function LoginForm({ type, title, idLabel, buttonColor }) {
             <input type="password" id={`${type}-password`} placeholder="Enter your password" required className={styles.inputField} />
           </div>
 
-          {/* Volunteer Level Dropdown (Only for Volunteer Login) */}
-          {type === "volunteer" && (
+          {/* Volunteer Level Dropdown - Only shown when in volunteer mode */}
+          {(type === "volunteer" || loginMode === "volunteer") && (
             <div className={styles.inputGroup}>
               <label htmlFor={`${type}-level`} className={styles.inputLabel}>
                 Select Volunteer Level
@@ -67,6 +87,8 @@ function LoginForm({ type, title, idLabel, buttonColor }) {
                 <option value="Level 1">Level 1 Volunteer</option>
                 <option value="Level 2">Level 2 Volunteer</option>
                 <option value="Level 3">Level 3 Volunteer</option>
+                <option value="Level 4">Level 4 Volunteer</option>
+                <option value="Level 5">Level 5 Volunteer</option>
               </select>
             </div>
           )}

@@ -1,0 +1,303 @@
+/* Main Layout */
+.app {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #fbfcfe; /* Secondary light */
+    margin-left: 250px;
+    transition: margin-left 0.3s ease;
+  }
+  
+  /* Order Container */
+  .order-details-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+  }
+  
+  .order-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .order-header h2 {
+    margin-bottom: 15px;
+    color: #181616; /* Secondary dark */
+    font-size: 24px;
+  }
+  
+  /* Controls Section */
+  .order-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .search-box {
+    position: relative;
+    width: 200px;
+  }
+  
+  .search-box input {
+    width: 100%;
+    padding: 10px 15px 10px 40px;
+    border: 1px solid #969799; /* Secondary gray */
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.3s;
+  }
+  
+  .search-box input:focus {
+    border-color: #37bfc5; /* Primary teal */
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(55, 191, 197, 0.2);
+  }
+  
+  .search-box i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #52595e; /* Secondary gray */
+  }
+  
+  .filter-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .filter-buttons button {
+    padding: 8px 15px;
+    background-color: #f5f7fa;
+    border: 1px solid #969799; /* Secondary gray */
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+    color: #52595e; /* Secondary gray */
+  }
+  
+  .filter-buttons button:hover {
+    background-color: #f0f7ff;
+    border-color: #57a2d8; /* Secondary blue */
+  }
+  
+  .filter-buttons button.active {
+    background-color: #37bfc5; /* Primary teal */
+    color: white;
+    border-color: #37bfc5;
+  }
+  
+  /* Order Table */
+  .order-table-container {
+    overflow-x: auto;
+    margin-bottom: 30px;
+    border-radius: 8px;
+  }
+  
+  .order-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .order-table th, .order-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .order-table th {
+    background-color: #f5f7fa;
+    font-weight: 600;
+    color: #456a8b; /* Secondary dark blue */
+  }
+  
+  .order-table tr:hover {
+    background-color: #fbfcfe; /* Secondary light */
+  }
+  
+  /* Items List */
+  .items-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  
+  .item-tag {
+    background-color: #f0f7ff;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #57a2d8; /* Secondary blue */
+    border: 1px solid #d1e7ff;
+  }
+  
+  /* Status Badges */
+  .status-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: capitalize;
+    display: inline-block;
+    min-width: 80px;
+    text-align: center;
+  }
+  
+  .status-pending {
+    background-color: #fff3e0;
+    color: #e65100;
+    border: 1px solid #ffe0b2;
+  }
+  
+  .status-approved {
+    background-color: #e3f2fd;
+    color: #0d47a1;
+    border: 1px solid #bbdefb;
+  }
+  
+  .status-packed {
+    background-color: #e8f5e9;
+    color: #1b5e20;
+    border: 1px solid #c8e6c9;
+  }
+  
+  .status-delivered {
+    background-color: #e0f7fa;
+    color: #006064;
+    border: 1px solid #b2ebf2;
+  }
+  
+  /* Action Buttons */
+  .action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .view-btn {
+    background: none;
+    border: none;
+    color: #57a2d8; /* Secondary blue */
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px;
+    transition: color 0.3s;
+  }
+  
+  .view-btn:hover {
+    color: #456a8b; /* Secondary dark blue */
+  }
+  
+  .status-select {
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: 1px solid #969799; /* Secondary gray */
+    font-size: 14px;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .status-select:focus {
+    outline: none;
+    border-color: #37bfc5; /* Primary teal */
+    box-shadow: 0 0 0 2px rgba(55, 191, 197, 0.2);
+  }
+  
+  /* No Orders Message */
+  .no-orders {
+    text-align: center;
+    padding: 20px;
+    color: #52595e; /* Secondary gray */
+  }
+  
+  /* Stats Cards */
+  .order-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .stat-card {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    border-left: 4px solid #37bfc5; /* Primary teal */
+  }
+  
+  .stat-card h3 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    color: #52595e; /* Secondary gray */
+  }
+  
+  .stat-card p {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #181616; /* Secondary dark */
+  }
+  
+  /* Loading State */
+  .loading {
+    text-align: center;
+    padding: 40px;
+    color: #52595e; /* Secondary gray */
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 1024px) {
+    .main-content {
+      margin-left: 0;
+      padding-left: 20px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .order-controls {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+    }
+    
+    .search-box {
+      width: 100%;
+    }
+    
+    .filter-buttons {
+      justify-content: flex-start;
+    }
+    
+    .order-table th, .order-table td {
+      padding: 8px 10px;
+      font-size: 14px;
+    }
+    
+    .order-stats {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .order-stats {
+      grid-template-columns: 1fr;
+    }
+    
+    .main-content {
+      padding: 10px;
+    }
+  }

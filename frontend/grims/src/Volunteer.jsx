@@ -9,6 +9,13 @@ const Volunteer = () => {
   const [level2Items, setLevel2Items] = useState([]);
   const [level3Routes, setLevel3Routes] = useState([]);
 
+  const [volunteerId, setVolunteerId] = useState('');
+  const [newLevel, setNewLevel] = useState(1);
+  const [volunteers, setVolunteers] = useState([
+    { id: 'V001', name: 'John Doe', level: 1 },
+    { id: 'V002', name: 'Jane Smith', level: 2 },
+    { id: 'V003', name: 'Mike Johnson', level: 3 }
+  ]);
   // Function to send sheets to Level 1 volunteers
   const sendSheetsToLevel1 = () => {
     const sheetNumber = level1Sheets.length + 1;
@@ -50,13 +57,60 @@ const Volunteer = () => {
     alert(`Route sent to Level 3 Volunteer: ${route}`);
   };
 
+  const updateVolunteerLevel = () => {
+    if (!volunteerId) {
+      alert('Please enter Volunteer ID');
+      return;
+    }
+    
+    setVolunteers(volunteers.map(v => 
+      v.id === volunteerId ? { ...v, level: newLevel } : v
+    ));
+    alert(`Volunteer ${volunteerId} updated to Level ${newLevel}`);
+    setVolunteerId('');
+  };
+
   return (
     <div className="app">
       <SideNav />
       <div className="main-content">
         <div className="volunteer-page">
           <h1 className="volunteer-title">Volunteer Management</h1>
-
+          {/* NEW VOLUNTEER LEVEL UPDATE CARD */}
+          <div className="volunteer-section" style={{ maxWidth: '500px', marginBottom: '30px' }}>
+            <h2>Update Volunteer Level</h2>
+            <div style={{ display: 'flex', gap: '10px', marginBottom: '15px' }}>
+              <input
+                type="text"
+                placeholder="Volunteer ID"
+                value={volunteerId}
+                onChange={(e) => setVolunteerId(e.target.value)}
+                style={{ padding: '8px', flex: 1 }}
+              />
+              <select 
+                value={newLevel}
+                onChange={(e) => setNewLevel(Number(e.target.value))}
+                style={{ padding: '8px' }}
+              >
+                {[1, 2, 3, 4, 5].map(level => (
+                  <option key={level} value={level}>Level {level}</option>
+                ))}
+              </select>
+            </div>
+            <button 
+              onClick={updateVolunteerLevel}
+              style={{
+                padding: '8px 16px',
+                background: '#4CAF50',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer'
+              }}
+            >
+              Update Level
+            </button>
+          </div>
           {/* Level 1 Volunteers Section */}
           <div className="volunteer-section">
             <h2>Level 1 Volunteers</h2>
