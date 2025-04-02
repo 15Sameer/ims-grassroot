@@ -8,8 +8,8 @@ import Volunteer3Dashboard from "./volunteer3/Volunteer3Dashboard.jsx";
 import DriverPortal from "./volunteer4/DriverPortal.jsx";
 
 function App() {
-  // Possible values: "login", "admin", "volunteer2", "volunteer3"
-  const [currentPanel, setCurrentPanel] = useState("volunteer3");
+  // Possible values: "login", "admin", "volunteer1", "volunteer2", "volunteer3", "volunteer4"
+  const [currentPanel, setCurrentPanel] = useState("login");
 
   return (
     <div>
