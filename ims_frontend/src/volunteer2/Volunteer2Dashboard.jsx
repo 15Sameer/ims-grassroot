@@ -7,12 +7,11 @@ import Statistics from "./Statistics";
 import Notifications from "./Notifications";
 import HelpSection from "./HelpSection";
 
-function Volunteer2Dashboard({ setCurrentPanel }) {
+function Volunteer2Dashboard({ }) {
   return (
-    <div className="vol2Dashboard">
-      {/* Header at the top (fixed-top in Bootstrap) */}
+    <div>
       <Header />
-
+      <div className="vol2Dashboard">
       {/* Main content area */}
       <div className="contentArea">
         <div className="leftCol">
@@ -24,6 +23,7 @@ function Volunteer2Dashboard({ setCurrentPanel }) {
           <HelpSection />
         </div>
       </div>
+    </div>
     </div>
   );
 }

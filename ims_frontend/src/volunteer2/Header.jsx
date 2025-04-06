@@ -1,14 +1,18 @@
 // src/volunteer2/Header.jsx
 import React from "react";
-// If you have a local logo, import it here:
 import GrassrootLogo from "../assets/images/Grassroot.png";
 
 function Header() {
   return (
-    <nav className="navbar navbar-light bg-white shadow-sm fixed-top">
+    <nav className="navbar navbar-light bg-white shadow-sm">
       <div className="container-fluid d-flex justify-content-between align-items-center">
         <div className="d-flex align-items-center">
-          <img src={GrassrootLogo} alt="Logo" className="me-3" style={{ height: "40px", width: "auto" }} />
+          <img
+            src={GrassrootLogo}
+            alt="Logo"
+            className="me-3"
+            style={{ height: "40px", width: "auto" }}
+          />
           <div>
             <div className="text-muted small">Welcome back,</div>
             <div className="fw-bold">John Smith</div>

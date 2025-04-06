@@ -1,8 +1,7 @@
-// src/components/StatsCard.tsx
+// src/volunteer3/StatsCard.jsx
 import React from 'react';
-import { StatsCardProps } from './types';
 
-const StatsCard = ({ icon, title, value, color }: StatsCardProps) => {
+const StatsCard = ({ icon, title, value, color }) => {
   const bgClass = `bg-${color}-100`;
   const textClass = `text-${color}`;
 
@@ -11,7 +10,7 @@ const StatsCard = ({ icon, title, value, color }: StatsCardProps) => {
       <div className="card-body">
         <div className="d-flex align-items-center">
           <div className={`rounded-circle p-3 ${bgClass} me-3`}>
-            <div className={String(textClass)}>{icon}</div>
+            <div className={textClass}>{icon}</div>
           </div>
           <div>
             <h5 className="card-title text-muted mb-1">{title}</h5>

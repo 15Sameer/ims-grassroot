@@ -1,13 +1,14 @@
-// src/components/Navbar.tsx
+// src/volunteer3/Navbar.jsx
 import React from 'react';
 import { FaBell } from 'react-icons/fa';
+import GrassrootLogo from '../assets/images/GrassRoot.png'; // Correct relative path
 
 const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom">
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
-          <img src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Logo" height="32" />
+          <img src={GrassrootLogo} alt="Grassroot Logo" height="40px" width="auto"/>
         </a>
         
         <div className="d-flex align-items-center">

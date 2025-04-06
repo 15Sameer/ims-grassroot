@@ -1,8 +1,7 @@
-// src/components/RecentCollectionsTable.tsx
+// src/volunteer3/RecentCollectionsTable.jsx
 import React from 'react';
-import { Collection } from './types';
 
-const RecentCollectionsTable = ({ collections }: { collections: Collection[] }) => {
+const RecentCollectionsTable = ({ collections }) => {
   return (
     <div className="card shadow-sm">
       <div className="card-body">

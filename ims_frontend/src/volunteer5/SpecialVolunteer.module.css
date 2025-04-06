@@ -1,0 +1,84 @@
+/* SpecialVolunteer.module.css */
+
+/* Container for the special volunteer dashboard */
+.specialVolunteerContainer {
+  display: flex;
+  min-height: 100vh;
+  background-color: #fbfcfe;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Sidebar styling */
+.sidebar {
+  width: 280px;
+  background-color: #181616; /* Secondary dark */
+  color: #fbfcfe;           /* Secondary light */
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+  font-size: 26px;
+  margin-bottom: 30px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 10px;
+}
+
+/* Navigation menu in the sidebar */
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar nav ul li {
+  margin-bottom: 20px;
+}
+
+.sidebar nav ul li a {
+  display: block;
+  background-color: #52595e; /* Secondary grey */
+  padding: 12px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #fbfcfe;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.sidebar nav ul li a:hover {
+  background-color: #57a2d8; /* Secondary lighter blue */
+  transform: translateX(5px);
+}
+
+.sidebar nav ul li a.active {
+  background-color: #37bfc5; /* Primary */
+  color: #fbfcfe;
+}
+
+/* Main content area for the dashboard */
+.mainContent {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Header for the special volunteer page */
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 2rem;
+  color: #181616;
+}
+
+.header p {
+  color: #52595e;
+  font-size: 1rem;
+}

@@ -1,33 +1,26 @@
 // src/App.jsx
-import React, { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./login/Login.jsx";
 import AdminPanel from "./admin/AdminPanel.jsx";
 import Volunteer1Dashboard from "./volunteer1/Volunteer1Dashboard.jsx";
 import Volunteer2Dashboard from "./volunteer2/Volunteer2Dashboard.jsx";
 import Volunteer3Dashboard from "./volunteer3/Volunteer3Dashboard.jsx";
 import DriverPortal from "./volunteer4/DriverPortal.jsx";
+import SpecialVolunteerDashboard from "./volunteer5/SpecialVolunteerDashboard.jsx";
 
 function App() {
-  // Possible values: "login", "admin", "volunteer1", "volunteer2", "volunteer3", "volunteer4"
-  const [currentPanel, setCurrentPanel] = useState("login");
-
   return (
-    <div>
-      {currentPanel === "login" && <Login setCurrentPanel={setCurrentPanel} />}
-      {currentPanel === "admin" && <AdminPanel setCurrentPanel={setCurrentPanel} />}
-      {currentPanel === "volunteer1" && (
-        <Volunteer1Dashboard setCurrentPanel={setCurrentPanel} />
-      )}
-      {currentPanel === "volunteer2" && (
-        <Volunteer2Dashboard setCurrentPanel={setCurrentPanel} />
-      )}
-      {currentPanel === "volunteer3" && (
-        <Volunteer3Dashboard setCurrentPanel={setCurrentPanel} />
-      )}
-      {currentPanel === "volunteer4" && (
-        <DriverPortal setCurrentPanel={setCurrentPanel} />
-      )}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/admin" element={<AdminPanel />} />
+        <Route path="/volunteer1" element={<Volunteer1Dashboard />} />
+        <Route path="/volunteer2" element={<Volunteer2Dashboard />} />
+        <Route path="/volunteer3" element={<Volunteer3Dashboard />} />
+        <Route path="/volunteer4" element={<DriverPortal />} />
+        <Route path="/special-volunteer/*" element={<SpecialVolunteerDashboard />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

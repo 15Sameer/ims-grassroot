@@ -13,7 +13,7 @@
   .contentArea {
     display: flex;
     gap: 20px;
-    margin-top: 30px;
+    /* margin-top: 30px; */
   }
   
   /* Left column for Task List */

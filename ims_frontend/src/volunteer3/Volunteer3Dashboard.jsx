@@ -1,15 +1,13 @@
-// src/Volunteer3Dashboard.tsx
-import React from 'react';
-import { useState } from 'react';
+// src/volunteer3/Volunteer3Dashboard.jsx
+import React, { useState } from 'react';
 import Navbar from './Navbar';
 import StatsCard from './StatsCard';
 import PackageCard from './PackageCard';
 import RecentCollectionsTable from './RecentCollectionsTable';
 import { FaBox, FaClock, FaCheckCircle, FaStopwatch } from 'react-icons/fa';
-import { Package, Collection } from './types';
 
 function Volunteer3Dashboard() {
-  const [activePackages] = useState<Package[]>([
+  const [activePackages] = useState([
     {
       id: '#PKG-2024-001',
       status: 'ready',
@@ -44,7 +42,7 @@ function Volunteer3Dashboard() {
     }
   ]);
 
-  const [recentCollections] = useState<Collection[]>([
+  const [recentCollections] = useState([
     {
       id: '#PKG-2024-003',
       items: 'Books (x3)',
@@ -107,7 +105,9 @@ function Volunteer3Dashboard() {
               <h2 className="mb-0">Active Packages</h2>
               <div className="d-flex gap-2">
                 <div className="input-group">
-                  <span className="input-group-text"><i className="bi bi-search"></i></span>
+                  <span className="input-group-text">
+                    <i className="bi bi-search"></i>
+                  </span>
                   <input type="text" className="form-control" placeholder="Search packages..." />
                 </div>
                 <select className="form-select">
