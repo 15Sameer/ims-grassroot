@@ -4,23 +4,24 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
-const {
-  IndianapolisUser,
-  WashingtonUser,
-  AllUsers,
-} = require("../models/User");
+const { IndianaUser, WashingtonUser, AllUsers } = require("../models/User");
 const { authMiddleware } = require("../middlewares/authMiddleware");
+const { register, login } = require("../controllers/authController");
 
 const router = express.Router();
 
+// ✅ Updated: Handle case and whitespace in location
 const getUserModel = (location) => {
-  return location === "Indianapolis" ? IndianapolisUser : WashingtonUser;
+  if (!location) return null;
+  const normalized = location.trim().toLowerCase();
+  if (normalized === "indiana") return IndianaUser;
+  if (normalized === "washington") return WashingtonUser;
+  return null;
 };
 
 // =============================
-// ✅ FORGOT PASSWORD - Generate Reset Token & Send Email
+// ✅ FORGOT PASSWORD
 // =============================
-// @route   POST /api/auth/forgot-password
 router.post("/forgot-password", async (req, res) => {
   try {
     const { email } = req.body;
@@ -30,13 +31,11 @@ router.post("/forgot-password", async (req, res) => {
       return res.status(400).json({ msg: "User not found" });
     }
 
-    // Generate reset token
     const resetToken = crypto.randomBytes(20).toString("hex");
     user.resetPasswordToken = resetToken;
-    user.resetPasswordExpires = Date.now() + 3600000; // Token expires in 1 hour
+    user.resetPasswordExpires = Date.now() + 3600000;
     await user.save();
 
-    // Send email with reset link
     const resetURL = `http://localhost:3000/reset-password/${resetToken}`;
     const transporter = nodemailer.createTransport({
       service: "Gmail",
@@ -63,9 +62,8 @@ router.post("/forgot-password", async (req, res) => {
 });
 
 // =============================
-// ✅ RESET PASSWORD - Verify Token & Update Password
+// ✅ RESET PASSWORD
 // =============================
-// @route   POST /api/auth/reset-password/:token
 router.post("/reset-password/:token", async (req, res) => {
   try {
     const { token } = req.params;
@@ -73,18 +71,15 @@ router.post("/reset-password/:token", async (req, res) => {
 
     const user = await AllUsers.findOne({
       resetPasswordToken: token,
-      resetPasswordExpires: { $gt: Date.now() }, // Token must not be expired
+      resetPasswordExpires: { $gt: Date.now() },
     });
 
     if (!user) {
       return res.status(400).json({ msg: "Invalid or expired token" });
     }
 
-    // Hash new password
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(newPassword, salt);
-
-    // Clear reset token
     user.resetPasswordToken = undefined;
     user.resetPasswordExpires = undefined;
 
@@ -98,7 +93,7 @@ router.post("/reset-password/:token", async (req, res) => {
 });
 
 // =============================
-// ✅ REGISTER A NEW USER (Stores in Two Collections)
+// ✅ REGISTER
 // =============================
 router.post(
   "/register",
@@ -110,10 +105,22 @@ router.post(
       .withMessage("Password must be at least 6 characters"),
     body("role")
       .optional()
-      .isIn(["admin", "client", "volunteer1", "volunteer2", "volunteer3"])
+      .isIn([
+        "admin",
+        "client",
+        "volunteer1",
+        "volunteer2",
+        "volunteer3",
+        "volunteer4",
+        "volunteer5",
+      ])
       .withMessage("Invalid role selection"),
     body("location")
-      .isIn(["Indianapolis", "Washington"])
+      .notEmpty()
+      .withMessage("Location is required")
+      .custom((val) =>
+        ["indiana", "washington"].includes(val.trim().toLowerCase())
+      )
       .withMessage("Invalid location selection"),
   ],
   authMiddleware,
@@ -123,8 +130,13 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, email, password, role, location } = req.body;
-    const User = getUserModel(location);
+    let { name, email, password, role, location } = req.body;
+    const normalizedLocation = location.trim().toLowerCase();
+    const User = getUserModel(normalizedLocation);
+
+    if (!User) {
+      return res.status(400).json({ msg: "Invalid location specified" });
+    }
 
     try {
       let userExists = await User.findOne({ email });
@@ -140,23 +152,21 @@ router.post(
         assignedRole = role;
       }
 
-      // Create user in location-based collection
       const user = new User({
         name,
         email,
         password: hashedPassword,
         role: assignedRole,
-        location,
+        location: normalizedLocation,
       });
       await user.save();
 
-      // Also save the user in `all_users`
       const allUser = new AllUsers({
         name,
         email,
         password: hashedPassword,
         role: assignedRole,
-        location,
+        location: normalizedLocation,
       });
       await allUser.save();
 
@@ -169,7 +179,13 @@ router.post(
       res.status(201).json({
         msg: "User registered successfully!",
         token,
-        user: { id: user._id, name, email, role: user.role, location },
+        user: {
+          id: user._id,
+          name,
+          email,
+          role: user.role,
+          location: user.location,
+        },
       });
     } catch (err) {
       console.error("❌ Error during registration:", err.message);
@@ -179,7 +195,7 @@ router.post(
 );
 
 // =============================
-// ✅ LOGIN USER
+// ✅ LOGIN
 // =============================
 router.post(
   "/login",
@@ -187,7 +203,11 @@ router.post(
     body("email").isEmail().withMessage("Enter a valid email"),
     body("password").exists().withMessage("Password is required"),
     body("location")
-      .isIn(["Indianapolis", "Washington"])
+      .notEmpty()
+      .withMessage("Location is required")
+      .custom((val) =>
+        ["indiana", "washington"].includes(val.trim().toLowerCase())
+      )
       .withMessage("Invalid location selection"),
   ],
   async (req, res) => {
@@ -196,12 +216,16 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { email, password, location } = req.body;
-    const User = getUserModel(location);
+    let { email, password, location } = req.body;
+    const normalizedLocation = location.trim().toLowerCase();
+    const User = getUserModel(normalizedLocation);
+
+    if (!User) {
+      return res.status(400).json({ msg: "Invalid location specified" });
+    }
 
     try {
       let user = await User.findOne({ email });
-
       if (!user) {
         return res.status(400).json({ msg: "Invalid Credentials" });
       }

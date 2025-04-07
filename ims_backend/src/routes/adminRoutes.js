@@ -3,16 +3,12 @@ const {
   authMiddleware,
   adminMiddleware,
 } = require("../middlewares/authMiddleware");
-const {
-  IndianapolisUser,
-  WashingtonUser,
-  AllUsers,
-} = require("../models/User");
+const { IndianaUser, WashingtonUser, AllUsers } = require("../models/User");
 
 const router = express.Router();
 
 const getUserModel = (location) => {
-  return location === "Indianapolis" ? IndianapolisUser : WashingtonUser;
+  return location === "Indiana" ? IndianaUser : WashingtonUser;
 };
 
 // =============================
@@ -44,7 +40,7 @@ router.get(
   async (req, res) => {
     const { location } = req.params;
 
-    if (!["Indianapolis", "Washington"].includes(location)) {
+    if (!["Indiana", "Washington"].includes(location)) {
       return res.status(400).json({ msg: "Invalid location" });
     }
 
@@ -73,7 +69,7 @@ router.put(
   async (req, res) => {
     const { location } = req.params;
 
-    if (!["Indianapolis", "Washington"].includes(location)) {
+    if (!["Indiana", "Washington"].includes(location)) {
       return res.status(400).json({ msg: "Invalid location" });
     }
 
@@ -125,7 +121,7 @@ router.delete(
   async (req, res) => {
     const { location } = req.params;
 
-    if (!["Indianapolis", "Washington"].includes(location)) {
+    if (!["Indiana", "Washington"].includes(location)) {
       return res.status(400).json({ msg: "Invalid location" });
     }
 
@@ -161,7 +157,7 @@ router.put(
   async (req, res) => {
     const { location } = req.params;
 
-    if (!["Indianapolis", "Washington"].includes(location)) {
+    if (!["Indiana", "Washington"].includes(location)) {
       return res.status(400).json({ msg: "Invalid location" });
     }
 
