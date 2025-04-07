@@ -1,0 +1,224 @@
+
+/* Volunteer Page Container */
+.volunteer-page {
+  padding: 20px;
+  background-color: #ffffff;
+  flex: 1;
+}
+
+@media (max-width: 991px) {
+  .volunteer-page {
+    margin-left: 100px;
+  }
+}
+
+@media (max-width: 661px) {
+  .volunteer-page {
+    margin-left: 0;
+    padding: 20px 10px;
+  }
+}
+
+/* Volunteer Title */
+.volunteer-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 20px;
+}
+
+/* Volunteer Section */
+.volunteer-section {
+  margin-bottom: 30px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.volunteer-section h2 {
+  font-size: 20px;
+  color: #4caf50;
+  margin-bottom: 15px;
+}
+
+.volunteer-section p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+/* Update Section Specific Styles */
+.update-section {
+  background-color: #f0f8ff;
+}
+
+.update-form {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #555;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.update-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+  height: 36px;
+  align-self: flex-end;
+}
+
+.update-button:hover {
+  background-color: #45a049;
+}
+
+/* Volunteers Table */
+.volunteers-table-container {
+  overflow-x: auto;
+}
+
+.volunteers-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.volunteers-table th,
+.volunteers-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.volunteers-table th {
+  background-color: #f2f2f2;
+  font-weight: 600;
+  color: #333;
+}
+
+.volunteers-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* Volunteer List */
+.volunteer-list {
+  margin-top: 15px;
+}
+
+.volunteer-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background-color: #fff;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.volunteer-item span {
+  font-size: 14px;
+  color: #333;
+}
+
+.volunteer-item .status {
+  color: #757575;
+  font-style: italic;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.action-button {
+  padding: 6px 12px;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.action-button:hover {
+  background-color: #0b7dda;
+}
+
+/* Volunteer Button */
+.volunteer-button {
+  background-color: #4CAF50;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  margin-bottom: 15px;
+}
+
+.volunteer-button:hover {
+  background-color: #45a049;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .volunteer-section h2 {
+    font-size: 18px;
+  }
+
+  .update-form {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-group {
+    min-width: 100%;
+  }
+
+  .update-button {
+    width: 100%;
+    align-self: stretch;
+  }
+
+  .volunteer-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .volunteer-item .status {
+    margin-left: 0;
+  }
+
+  .action-buttons {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}

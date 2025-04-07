@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import styles from "./InputDesign.module.css";
-import Grassroot from "./Grassroot.png";
+import styles from "./Login.module.css";
+import Grassroot from "../assets/images/Grassroot.png";
 import { MapPin } from "lucide-react";
 
-function LoginHeader() {
-  const [selectedLocation, setSelectedLocation] = useState(""); // ✅ Fix: Define selectedLocation state
+function LoginHeader({ setLocation }) {
+  const [selectedLocation, setSelectedLocation] = useState(""); // Track selected location
 
   const handleLocationSelect = (location) => {
-    setSelectedLocation(location); // ✅ Fix: Update selected location
+    setSelectedLocation(location); // Update state
+    setLocation(location); // Send to LoginForm
   };
 
   return (
-    <header className={styles.header}>
+    <header>
       <img src={Grassroot} alt="Grassroot Projects logo" className={styles.logo} />
 
       <div className={styles.locationWrapper}>
@@ -20,7 +21,7 @@ function LoginHeader() {
         </label>
 
         {/* Washington Button */}
-        <button
+        <button 
           className={`${styles.locationButton} ${selectedLocation === "Washington" ? styles.active : ""}`}
           onClick={() => handleLocationSelect("Washington")}
         >
@@ -28,13 +29,15 @@ function LoginHeader() {
         </button>
 
         {/* Indiana Button */}
-        <button
+        <button 
           className={`${styles.locationButton} ${selectedLocation === "Indiana" ? styles.active : ""}`}
           onClick={() => handleLocationSelect("Indiana")}
         >
           Indiana
         </button>
       </div>
+
+      <h1 className={styles.title}>Welcome to Inventory Management System</h1>
     </header>
   );
 }

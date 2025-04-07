@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
-import styles from "./InputDesign.module.css";
+import styles from "./Login.module.css";
 import LoginHeader from "./LoginHeader";
 import LoginContainer from "./LoginContainer";
 
-function InputDesign() {
+function Login() {
   return (
     <main className={styles.container}>
       <LoginHeader />
@@ -13,4 +13,4 @@ function InputDesign() {
   );
 }
 
-export default InputDesign;
+export default Login;

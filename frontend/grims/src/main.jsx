@@ -1,10 +1,10 @@
-import './inputDesign.module.css'
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
+import './InputDesign.module.css';
+import { StrictMode } from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
 
-createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
-  </StrictMode>,
-)
+    <App /> {/* This will use BrowserRouter from App.jsx */}
+  </StrictMode>
+);

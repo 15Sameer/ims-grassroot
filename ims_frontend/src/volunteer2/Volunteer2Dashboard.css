@@ -1,0 +1,86 @@
+/* src/volunteer2/Volunteer2Dashboard.css */
+
+/* Base container styling for the Volunteer 2 Dashboard */
+.vol2Dashboard {
+    background-color: #fbfcfe; /* Light background */
+    min-height: 100vh;
+    padding: 80px 20px 20px; /* Enough top padding to clear fixed header */
+    font-family: 'Inter', sans-serif;
+    color: #181616; /* Dark text */
+  }
+  
+  /* Layout for the main content area */
+  .contentArea {
+    display: flex;
+    gap: 20px;
+    /* margin-top: 30px; */
+  }
+  
+  /* Left column for Task List */
+  .leftCol {
+    flex: 2;
+  }
+  
+  /* Right column for Statistics, Notifications, Help Section */
+  .rightCol {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* Generic card style for child components (TaskList, etc.) */
+  .card {
+    background-color: #ffffff;
+    border: 1px solid #969799; /* Secondary grey */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Style for card titles */
+  .card-title {
+    margin-bottom: 15px;
+    font-weight: 700;
+    color: #181616;
+  }
+  
+  /* Buttons styling using primary colors */
+  button {
+    background-color: #37bfc5;
+    border: none;
+    border-radius: 5px;
+    color: #fbfcfe;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #881be5; /* Alternate primary */
+  }
+  
+  /* Optional: styling links if any appear in your dashboard */
+  a {
+    color: #37bfc5;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    color: #57a2d8;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .contentArea {
+      flex-direction: column;
+    }
+  }
+  
