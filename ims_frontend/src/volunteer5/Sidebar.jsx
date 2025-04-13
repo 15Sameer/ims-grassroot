@@ -31,7 +31,7 @@ const Sidebar = ({ isSidebarVisible, toggleSidebar }) => {
           <span className={styles.icon}>👷</span> Volunteer 3
         </li>
         <li className={`${styles.menuItem} ${isActive('/special-volunteer/volunteer4') ? styles.active : ''}`} onClick={() => handleNav('/special-volunteer/volunteer4')}>
-          <span className={styles.icon}>🚚</span> Driver Portal
+          <span className={styles.icon}>🚚</span> Volunteer 4
         </li>
       </ul>
     </aside>
