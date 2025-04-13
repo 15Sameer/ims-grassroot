@@ -15,7 +15,7 @@ app.use(helmet());
 
 // Rate Limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 mins
+  windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // Limit each IP to 100 requests per window
 });
 app.use(limiter);
@@ -25,28 +25,40 @@ connectDB();
 
 // Default Route
 app.get("/", (req, res) => {
-  res.send("Grassroot Inventory API is running...");
+  res.send("🚀 Grassroot Inventory API is running...");
+});
+
+// =============================
+// ✅ Route Imports
+// =============================
+const authRoutes = require("./routes/authRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+const inventoryRoutes = require("./routes/inventoryRoutes");
+
+// Optional: Load Protected Routes Safely
+try {
+  const protectedRoutes = require("./routes/protectedRoutes.js");
+  console.log("✅ Protected routes imported successfully");
+  app.use("/api/protected", protectedRoutes);
+} catch (error) {
+  console.error("❌ Error loading protectedRoutes:", error);
+}
+
+// =============================
+// ✅ Register Routes
+// =============================
+app.use("/api/auth", authRoutes); // Authentication
+app.use("/api/admin", adminRoutes); // Admin Management
+app.use("/api/inventory", inventoryRoutes); // Inventory Management
+
+// =============================
+// ✅ Error Handling Middleware
+// =============================
+app.use((err, req, res, next) => {
+  console.error("❌ Server Error:", err.stack);
+  res.status(500).json({ msg: "Internal Server Error" });
 });
 
 // Start Server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-//To handle authentication
-const authRoutes = require("./routes/authRoutes");
-app.use("/api/auth", authRoutes);
-
-//To handle inventory routes
-// const protectedRoutes = require("./routes/protectedRoutes.js");
-// app.use("/api/protected", protectedRoutes);
-try {
-  const protectedRoutes = require("./routes/protectedRoutes.js");
-  console.log("Protected routes imported successfully");
-  app.use("/api/protected", protectedRoutes);
-} catch (error) {
-  console.error("Error loading protectedRoutes:", error);
-}
-
-//for admin to update roles
-const adminRoutes = require("./routes/adminRoutes");
-app.use("/api/admin", adminRoutes);
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
