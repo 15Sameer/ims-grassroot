@@ -1,5 +1,5 @@
 // src/volunteer5/SpecialVolunteerDashboard.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Volunteer1Dashboard from '../volunteer1/Volunteer1Dashboard';
@@ -9,10 +9,17 @@ import DriverPortal from '../volunteer4/DriverPortal';
 import styles from './SpecialVolunteer.module.css';
 
 const SpecialVolunteerDashboard = () => {
+  const [isSidebarVisible, setSidebarVisible] = useState(false);
+
+  const toggleSidebar = () => setSidebarVisible(!isSidebarVisible);
+
   return (
     <div className={styles.specialVolunteerContainer}>
-      <Sidebar />
-      <div className={styles.mainContent}>
+      <div className={styles.hamburgerIcon} onClick={toggleSidebar}>☰</div>
+
+      <Sidebar isSidebarVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
+
+      <div className={`${styles.mainContent} ${isSidebarVisible ? styles.sidebarOpen : ''}`}>
         <header className={styles.header}>
           <h1>Special Volunteer Dashboard</h1>
           <p>Manage and view work of all volunteers</p>

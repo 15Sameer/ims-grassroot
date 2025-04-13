@@ -1,84 +1,107 @@
-/* SpecialVolunteer.module.css */
-
-/* Container for the special volunteer dashboard */
-.specialVolunteerContainer {
-  display: flex;
-  min-height: 100vh;
-  background-color: #fbfcfe;
-  font-family: 'Inter', sans-serif;
+/* Hamburger icon */
+.hamburgerIcon {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Sidebar styling */
+/* Sidebar responsive visibility */
 .sidebar {
-  width: 280px;
-  background-color: #181616; /* Secondary dark */
-  color: #fbfcfe;           /* Secondary light */
+  position: fixed;
+  width: 250px;
+  height: 100vh;
+  background-color: #181616;
+  color: #fbfcfe;
   padding: 30px 20px;
   display: flex;
   flex-direction: column;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(0);
+  z-index: 1000;
 }
 
-.sidebar h2 {
-  font-size: 26px;
-  margin-bottom: 30px;
+.sidebarHeader {
   text-align: center;
+  padding-bottom: 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  padding-bottom: 10px;
 }
 
-/* Navigation menu in the sidebar */
-.sidebar nav ul {
+.sidebarLogo {
+  max-width: 70%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.menu {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin-top: 20px;
 }
 
-.sidebar nav ul li {
-  margin-bottom: 20px;
-}
-
-.sidebar nav ul li a {
-  display: block;
-  background-color: #52595e; /* Secondary grey */
-  padding: 12px 15px;
+.menuItem {
+  padding: 15px;
   border-radius: 8px;
-  text-decoration: none;
-  color: #fbfcfe;
+  background-color: #52595e;
+  margin-bottom: 15px;
+  cursor: pointer;
   font-size: 16px;
   font-weight: 500;
+  display: flex;
+  align-items: center;
   transition: background-color 0.3s, transform 0.3s;
 }
 
-.sidebar nav ul li a:hover {
-  background-color: #57a2d8; /* Secondary lighter blue */
+.menuItem:hover {
+  background-color: #57a2d8;
   transform: translateX(5px);
 }
 
-.sidebar nav ul li a.active {
-  background-color: #37bfc5; /* Primary */
+.menuItem.active {
+  background-color: #37bfc5;
   color: #fbfcfe;
 }
 
-/* Main content area for the dashboard */
+.icon {
+  margin-right: 10px;
+}
+
+/* Content shift for larger screens */
 .mainContent {
   flex-grow: 1;
   padding: 20px;
   overflow-y: auto;
+  margin-left: 250px;
+  transition: margin-left 0.3s ease;
 }
 
-/* Header for the special volunteer page */
-.header {
-  text-align: center;
-  margin-bottom: 20px;
-}
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .hamburgerIcon {
+    display: block;
+  }
 
-.header h1 {
-  font-size: 2rem;
-  color: #181616;
-}
+  .sidebar {
+    transform: translateX(-100%);
+  }
 
-.header p {
-  color: #52595e;
-  font-size: 1rem;
+  .sidebar.visible {
+    transform: translateX(0);
+  }
+
+  .mainContent {
+    margin-left: 0;
+  }
+
+  .mainContent.sidebarOpen {
+    margin-left: 0; /* keep consistent with mobile sidebar */
+  }
 }

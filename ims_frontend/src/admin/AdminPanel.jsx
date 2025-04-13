@@ -1,49 +1,26 @@
 // src/admin/AdminPanel.jsx
-import React, { useState } from 'react';
-import SideNav from './SideNav';
-import Header from './Header';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Dashboard from './Dashboard';
-import InventoryUpdates from './InventoryUpdates';
+import Volunteer from './Volunteer'; 
 import Orders from './Orders';
-import VolunteerCalls from './VolunteerCalls';
-import DriverAssignment from './DriverAssignment';
+import UpdateStock from './UpdateStock';
 import Reports from './Reports';
-import styles from './adminPanel.module.css';
+import '../App.css';
 
-const AdminPanel = () => {
-  const [activeTab, setActiveTab] = useState('Dashboard');
-
-  // Render the page based on the active tab
-  const renderContent = () => {
-    switch(activeTab) {
-      case 'Dashboard':
-        return <Dashboard />;
-      case 'Inventory Updates':
-        return <InventoryUpdates />;
-      case 'Orders':
-        return <Orders />;
-      case 'Volunteer Calls':
-        return <VolunteerCalls />;
-      case 'Driver Assignment':
-        return <DriverAssignment />;
-      case 'Reports':
-        return <Reports />;
-      default:
-        return <Dashboard />;
-    }
-  };
-
+function AdminPanel() {
   return (
-    <div className={styles.container}>
-      <SideNav activeTab={activeTab} setActiveTab={setActiveTab} />
-      <div className={styles.mainArea}>
-        <Header />
-        <div className={styles.content}>
-          {renderContent()}
-        </div>
-      </div>
+    <div className="adminPanelWrapper">
+      {/* Optional: Add your Sidebar/Header for admin here if needed */}
+      <Routes>
+        <Route path="/" element={<Navigate to="dashboard" />} />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="volunteer" element={<Volunteer />} />
+        <Route path="orders" element={<Orders />} />
+        <Route path="updatestock" element={<UpdateStock />} />
+        <Route path="reports" element={<Reports />} />
+      </Routes>
     </div>
   );
-};
+}
 
 export default AdminPanel;

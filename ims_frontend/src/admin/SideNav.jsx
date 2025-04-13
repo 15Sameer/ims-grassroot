@@ -1,33 +1,59 @@
 // src/admin/SideNav.jsx
-import React from 'react';
-import styles from './adminPanel.module.css';
+import React, { useState } from 'react';
+import { useLocation,useNavigate } from 'react-router-dom'; // Import useNavigate
+import './Sidenav.css';
+import Grassroot from '../assets/images/Grassroot.png';
 
-const Sidebar = ({ activeTab, setActiveTab }) => {
-  const navItems = [
-    'Dashboard', 
-    'Inventory Updates', 
-    'Orders', 
-    'Volunteer Calls', 
-    'Driver Assignment', 
-    'Reports'
-  ];
+const Sidenav = () => {
+  const [isSidebarVisible, setSidebarVisible] = useState(false);
+  const navigate = useNavigate(); 
+  const location = useLocation();
+
+  const toggleSidebar = () => {
+    setSidebarVisible(!isSidebarVisible);
+  };
+
+  // Function to handle navigation
+  const handleNavigation = (path) => {
+    navigate(path); // Navigate to the specified path
+    setSidebarVisible(false); // Close the sidebar on mobile after navigation
+  };
+  const isActive = (path) => {
+    return location.pathname === path ? 'active' : '';
+  };
 
   return (
-    <div className={styles.sidebar}>
-      <h2 className={styles.sidebarTitle}>Admin Panel</h2>
-      <ul className={styles.navList}>
-        {navItems.map((item) => (
-          <li 
-            key={item} 
-            className={`${styles.navItem} ${activeTab === item ? styles.activeNavItem : ''}`}
-            onClick={() => setActiveTab(item)}
-          >
-            {item}
+    <>
+      {/* Hamburger Icon */}
+      <div className="hamburger-icon" onClick={toggleSidebar}>
+        ☰
+      </div>
+
+      {/* Sidebar */}
+      <aside className={`sidebar ${isSidebarVisible ? 'visible' : ''}`}>
+        <div className="sidebar-header">
+          <img src={Grassroot} alt="Grassroot Projects Logo" className="sidebarlogo" />
+        </div>
+        <ul className="menu">
+          <li className={`menu-item ${isActive('/dashboard')}`} onClick={() => handleNavigation('/admin/dashboard')}>
+            <span className="icon">📊</span> Dashboard
           </li>
-        ))}
-      </ul>
-    </div>
+          <li className={`menu-item ${isActive('/volunteer')}`} onClick={() => handleNavigation('/admin/volunteer')}>
+            <span className="icon">👤</span> Volunteers
+          </li>
+          <li className={`menu-item ${isActive('/orders')}`} onClick={() => handleNavigation('/admin/orders')}>
+            <span className="icon">📋</span> Orders Status
+          </li>
+          <li className={`menu-item ${isActive('/updatestock')}`} onClick={() => handleNavigation('/admin/updatestock')}>
+            <span className="icon">🔄</span> Update Stock
+          </li>
+          <li className={`menu-item ${isActive('/reports')}`} onClick={() => handleNavigation('/admin/reports')}>
+            <span className="icon">📊</span> Report
+          </li>
+        </ul>
+      </aside>
+    </>
   );
 };
 
-export default Sidebar;
+export default Sidenav;

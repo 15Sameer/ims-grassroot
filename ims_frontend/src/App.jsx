@@ -1,19 +1,22 @@
 // src/App.jsx
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./login/Login.jsx";
+import Login from "./login/LoginPage.jsx";
 import AdminPanel from "./admin/AdminPanel.jsx";
 import Volunteer1Dashboard from "./volunteer1/Volunteer1Dashboard.jsx";
 import Volunteer2Dashboard from "./volunteer2/Volunteer2Dashboard.jsx";
 import Volunteer3Dashboard from "./volunteer3/Volunteer3Dashboard.jsx";
 import DriverPortal from "./volunteer4/DriverPortal.jsx";
 import SpecialVolunteerDashboard from "./volunteer5/SpecialVolunteerDashboard.jsx";
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'font-awesome/css/font-awesome.min.css';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/admin" element={<AdminPanel />} />
+        <Route path="/admin/*" element={<AdminPanel />} />
         <Route path="/volunteer1" element={<Volunteer1Dashboard />} />
         <Route path="/volunteer2" element={<Volunteer2Dashboard />} />
         <Route path="/volunteer3" element={<Volunteer3Dashboard />} />

@@ -1,35 +1,34 @@
+// src/login/LoginHeader.jsx
 import React, { useState } from "react";
-import styles from "./Login.module.css";
+import styles from "./LoginPage.module.css";
 import Grassroot from "../assets/images/Grassroot.png";
-import { MapPin } from "lucide-react";
+import { MapPin, Sun, Moon } from "lucide-react";
+import { useTheme } from "../ThemeContext";
 
-function LoginHeader({ setLocation }) {
-  const [selectedLocation, setSelectedLocation] = useState(""); // Track selected location
+function LoginHeader() {
+  const [selectedLocation, setSelectedLocation] = useState("");
+  const { theme, toggleTheme } = useTheme();
 
   const handleLocationSelect = (location) => {
-    setSelectedLocation(location); // Update state
-    setLocation(location); // Send to LoginForm
+    setSelectedLocation(location);
   };
 
   return (
-    <header>
+    <header className={styles.header}>
       <img src={Grassroot} alt="Grassroot Projects logo" className={styles.logo} />
 
+      {/* Location Selector */}
       <div className={styles.locationWrapper}>
         <label className={styles.label}>
           <MapPin size={16} color="red" className={styles.icon} /> Location:
         </label>
-
-        {/* Washington Button */}
-        <button 
+        <button
           className={`${styles.locationButton} ${selectedLocation === "Washington" ? styles.active : ""}`}
           onClick={() => handleLocationSelect("Washington")}
         >
           Washington
         </button>
-
-        {/* Indiana Button */}
-        <button 
+        <button
           className={`${styles.locationButton} ${selectedLocation === "Indiana" ? styles.active : ""}`}
           onClick={() => handleLocationSelect("Indiana")}
         >
@@ -37,7 +36,12 @@ function LoginHeader({ setLocation }) {
         </button>
       </div>
 
-      <h1 className={styles.title}>Welcome to Inventory Management System</h1>
+      {/* Global Theme Toggle */}
+      <div className={styles.themeToggle}>
+        <button onClick={toggleTheme} className={styles.themeToggleBtn}>
+          {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+        </button>
+      </div>
     </header>
   );
 }

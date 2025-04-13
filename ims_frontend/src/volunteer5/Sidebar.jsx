@@ -1,21 +1,40 @@
-// src/SpecialVolunteer/Sidebar.jsx
+// src/volunteer5/Sidebar.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
-import styles from './SpecialVolunteer.module.css'; // Import as a module
+import { useLocation, useNavigate } from 'react-router-dom';
+import styles from './SpecialVolunteer.module.css';
+import Grassroot from '../assets/images/Grassroot.png';
 
-const Sidebar = () => {
+const Sidebar = ({ isSidebarVisible, toggleSidebar }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleNav = (path) => {
+    navigate(path);
+    toggleSidebar(); // Auto close on mobile
+  };
+
+  const isActive = (path) => location.pathname === path;
+
   return (
-    <div className={styles.sidebar}>
-      <h2>Special Volunteer</h2>
-      <nav>
-        <ul>
-          <li><Link to="/special-volunteer/volunteer1">Volunteer 1</Link></li>
-          <li><Link to="/special-volunteer/volunteer2">Volunteer 2</Link></li>
-          <li><Link to="/special-volunteer/volunteer3">Volunteer 3</Link></li>
-          <li><Link to="/special-volunteer/volunteer4">Volunteer 4</Link></li>
-        </ul>
-      </nav>
-    </div>
+    <aside className={`${styles.sidebar} ${isSidebarVisible ? styles.visible : ''}`}>
+      <div className={styles.sidebarHeader}>
+        <img src={Grassroot} alt="Grassroot Logo" className={styles.sidebarLogo} />
+      </div>
+      <ul className={styles.menu}>
+        <li className={`${styles.menuItem} ${isActive('/special-volunteer/volunteer1') ? styles.active : ''}`} onClick={() => handleNav('/special-volunteer/volunteer1')}>
+          <span className={styles.icon}>🧑‍💻</span> Volunteer 1
+        </li>
+        <li className={`${styles.menuItem} ${isActive('/special-volunteer/volunteer2') ? styles.active : ''}`} onClick={() => handleNav('/special-volunteer/volunteer2')}>
+          <span className={styles.icon}>🧑‍🔧</span> Volunteer 2
+        </li>
+        <li className={`${styles.menuItem} ${isActive('/special-volunteer/volunteer3') ? styles.active : ''}`} onClick={() => handleNav('/special-volunteer/volunteer3')}>
+          <span className={styles.icon}>👷</span> Volunteer 3
+        </li>
+        <li className={`${styles.menuItem} ${isActive('/special-volunteer/volunteer4') ? styles.active : ''}`} onClick={() => handleNav('/special-volunteer/volunteer4')}>
+          <span className={styles.icon}>🚚</span> Driver Portal
+        </li>
+      </ul>
+    </aside>
   );
 };
 
