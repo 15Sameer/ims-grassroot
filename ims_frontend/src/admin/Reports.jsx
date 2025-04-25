@@ -2,6 +2,25 @@
 import React, { useState, useEffect } from 'react';
 import './Reports.css';
 import SideNav from './SideNav';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faSearch, 
+  faInbox, 
+  faExclamationCircle, 
+  faCheckCircle, 
+  faClock, 
+  faUser, 
+  faEnvelope, 
+  faCalendarAlt, 
+  faTag, 
+  faEye, 
+  faChevronDown, 
+  faChevronUp,
+  faPaperPlane,
+  faIdCard,
+  faClipboardList,
+  faChartBar
+} from '@fortawesome/free-solid-svg-icons';
 
 const Reports = () => {
   const [reports, setReports] = useState([]);
@@ -157,7 +176,7 @@ const Reports = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
-              <i className="fas fa-search"></i>
+              <FontAwesomeIcon icon={faSearch} />
             </div>
             
             <div className="filter-tabs">
@@ -165,25 +184,25 @@ const Reports = () => {
                 className={filter === 'all' ? 'active' : ''} 
                 onClick={() => setFilter('all')}
               >
-                All Reports
+                <FontAwesomeIcon icon={faClipboardList} /> All Reports
               </button>
               <button 
                 className={filter === 'pending' ? 'active' : ''} 
                 onClick={() => setFilter('pending')}
               >
-                Pending
+                <FontAwesomeIcon icon={faClock} /> Pending
               </button>
               <button 
                 className={filter === 'in progress' ? 'active' : ''} 
                 onClick={() => setFilter('in progress')}
               >
-                In Progress
+                <FontAwesomeIcon icon={faExclamationCircle} /> In Progress
               </button>
               <button 
                 className={filter === 'resolved' ? 'active' : ''} 
                 onClick={() => setFilter('resolved')}
               >
-                Resolved
+                <FontAwesomeIcon icon={faCheckCircle} /> Resolved
               </button>
             </div>
           </div>
@@ -191,19 +210,31 @@ const Reports = () => {
         
         <div className="reports-overview">
           <div className="overview-card total">
-            <h3>Total Reports</h3>
+            <h3>
+              <FontAwesomeIcon icon={faChartBar} />
+              Total Reports
+            </h3>
             <p>{reports.length}</p>
           </div>
           <div className="overview-card pending">
-            <h3>Pending</h3>
+            <h3>
+              <FontAwesomeIcon icon={faClock} />
+              Pending
+            </h3>
             <p>{reports.filter(r => r.status === 'Pending').length}</p>
           </div>
           <div className="overview-card in-progress">
-            <h3>In Progress</h3>
+            <h3>
+              <FontAwesomeIcon icon={faExclamationCircle} />
+              In Progress
+            </h3>
             <p>{reports.filter(r => r.status === 'In Progress').length}</p>
           </div>
           <div className="overview-card resolved">
-            <h3>Resolved</h3>
+            <h3>
+              <FontAwesomeIcon icon={faCheckCircle} />
+              Resolved
+            </h3>
             <p>{reports.filter(r => r.status === 'Resolved').length}</p>
           </div>
         </div>
@@ -217,13 +248,17 @@ const Reports = () => {
               >
                 <div className="card-header">
                   <div className="customer-avatar">
-                    {report.customer.avatar}
+                    <FontAwesomeIcon icon={faUser} />
                   </div>
                   <div className="customer-info">
                     <h4>{report.customer.name}</h4>
-                    <p>{report.customer.email}</p>
+                    <p>
+                      <FontAwesomeIcon icon={faEnvelope} />
+                      {report.customer.email}
+                    </p>
                   </div>
                   <div className={`priority-tag ${getPriorityClass(report.priority)}`}>
+                    <FontAwesomeIcon icon={faExclamationCircle} />
                     {report.priority}
                   </div>
                 </div>
@@ -231,15 +266,23 @@ const Reports = () => {
                 <div className="card-body">
                   <div className="report-meta">
                     <span className={`type-badge ${getTypeClass(report.type)}`}>
+                      <FontAwesomeIcon icon={faTag} />
                       {report.type}
                     </span>
-                    <span className="report-date">{report.date}</span>
+                    <span className="report-date">
+                      <FontAwesomeIcon icon={faCalendarAlt} />
+                      {report.date}
+                    </span>
                     <span className={`status-badge ${getStatusClass(report.status)}`}>
+                      <FontAwesomeIcon icon={faCheckCircle} />
                       {report.status}
                     </span>
                   </div>
                   
-                  <h3 className="report-subject">{report.subject}</h3>
+                  <h3 className="report-subject">
+                    <FontAwesomeIcon icon={faClipboardList} />
+                    {report.subject}
+                  </h3>
                   
                   <p className="report-message">
                     {report.message.length > 100 && !(expandedReport === report.id)
@@ -251,12 +294,18 @@ const Reports = () => {
                     <div className="report-details">
                       {report.response ? (
                         <div className="admin-response">
-                          <h4>Your Response:</h4>
+                          <h4>
+                            <FontAwesomeIcon icon={faPaperPlane} />
+                            Your Response:
+                          </h4>
                           <p>{report.response}</p>
                         </div>
                       ) : (
                         <div className="response-form">
-                          <h4>Add Response:</h4>
+                          <h4>
+                            <FontAwesomeIcon icon={faPaperPlane} />
+                            Add Response:
+                          </h4>
                           <textarea
                             value={responseText}
                             onChange={(e) => setResponseText(e.target.value)}
@@ -276,6 +325,7 @@ const Reports = () => {
                               className="submit-response"
                               onClick={() => submitResponse(report.id)}
                             >
+                              <FontAwesomeIcon icon={faPaperPlane} />
                               Send Response
                             </button>
                           </div>
@@ -286,19 +336,32 @@ const Reports = () => {
                 </div>
                 
                 <div className="card-footer">
-                  <span className="report-id">{report.id}</span>
+                  <span className="report-id">
+                    <FontAwesomeIcon icon={faIdCard} />
+                    {report.id}
+                  </span>
                   <button 
                     className="toggle-details"
                     onClick={() => setExpandedReport(expandedReport === report.id ? null : report.id)}
                   >
-                    {expandedReport === report.id ? 'Collapse' : 'View Details'}
+                    {expandedReport === report.id ? (
+                      <>
+                        <FontAwesomeIcon icon={faChevronUp} />
+                        Collapse
+                      </>
+                    ) : (
+                      <>
+                        <FontAwesomeIcon icon={faChevronDown} />
+                        View Details
+                      </>
+                    )}
                   </button>
                 </div>
               </div>
             ))
           ) : (
             <div className="no-reports">
-              <i className="fas fa-inbox"></i>
+              <FontAwesomeIcon icon={faInbox} />
               <p>No reports match your current filters</p>
             </div>
           )}

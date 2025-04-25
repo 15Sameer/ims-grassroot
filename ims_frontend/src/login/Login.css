@@ -1,4 +1,3 @@
-
 .container {
   min-height: 100vh; /* Use 100vh instead of "screen" */
   flex-direction: column;

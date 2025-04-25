@@ -5,11 +5,12 @@ import { MapPin, Sun, Moon } from "lucide-react";
 import { useTheme } from "../ThemeContext";
 
 function LoginHeader() {
-  const [selectedLocation, setSelectedLocation] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState(localStorage.getItem('selectedLocation') || "");
   const { theme, toggleTheme } = useTheme();
 
   const handleLocationSelect = (location) => {
     setSelectedLocation(location);
+    localStorage.setItem('selectedLocation', location);
   };
 
   return (

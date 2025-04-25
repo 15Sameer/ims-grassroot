@@ -62,12 +62,13 @@
     box-shadow: 0 0 0 2px rgba(55, 191, 197, 0.2);
   }
   
-  .search-box i {
+  .search-box svg {
     position: absolute;
     left: 15px;
     top: 50%;
     transform: translateY(-50%);
     color: #52595e; /* Secondary gray */
+    pointer-events: none;
   }
   
   .filter-buttons {
@@ -225,31 +226,36 @@
   /* Stats Cards */
   .order-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 15px;
-    margin-top: 20px;
+    margin-bottom: 20px;
   }
   
   .stat-card {
-    background-color: white;
+    background: white;
     padding: 15px;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     text-align: center;
-    border-left: 4px solid #37bfc5; /* Primary teal */
+    border-left: 4px solid #37bfc5;
+    transition: transform 0.3s ease;
+  }
+  
+  .stat-card:hover {
+    transform: translateY(-5px);
   }
   
   .stat-card h3 {
-    margin: 0 0 10px;
-    font-size: 16px;
-    color: #52595e; /* Secondary gray */
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    color: #52595e;
   }
   
   .stat-card p {
     margin: 0;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 600;
-    color: #181616; /* Secondary dark */
+    color: #181616;
   }
   
   /* Loading State */

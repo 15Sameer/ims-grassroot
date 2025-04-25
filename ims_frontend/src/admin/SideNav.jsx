@@ -1,25 +1,49 @@
 // src/admin/SideNav.jsx
 import React, { useState } from 'react';
-import { useLocation,useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useLocation, useNavigate } from 'react-router-dom';
 import './Sidenav.css';
 import Grassroot from '../assets/images/Grassroot.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faChartBar, 
+  faUser, 
+  faClipboardList, 
+  faBox, 
+  faFileAlt,
+  faSignOutAlt
+} from '@fortawesome/free-solid-svg-icons';
 
 const Sidenav = () => {
   const [isSidebarVisible, setSidebarVisible] = useState(false);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const location = useLocation();
 
   const toggleSidebar = () => {
     setSidebarVisible(!isSidebarVisible);
   };
 
-  // Function to handle navigation
   const handleNavigation = (path) => {
-    navigate(path); // Navigate to the specified path
-    setSidebarVisible(false); // Close the sidebar on mobile after navigation
+    navigate(path);
+    setSidebarVisible(false);
   };
+
+  const handleLogout = () => {
+    // Clear any stored data
+    localStorage.removeItem('selectedLocation');
+    localStorage.removeItem('rememberedId');
+    localStorage.removeItem('rememberedPwd');
+    
+    // Navigate to login page
+    navigate('/');
+  };
+
   const isActive = (path) => {
-    return location.pathname === path ? 'active' : '';
+    // Remove leading slash and split the path
+    const currentPath = location.pathname.split('/').filter(Boolean);
+    const targetPath = path.split('/').filter(Boolean);
+    
+    // Check if the current path starts with the target path
+    return currentPath[0] === targetPath[0] && currentPath[1] === targetPath[1] ? 'active' : '';
   };
 
   return (
@@ -35,22 +59,43 @@ const Sidenav = () => {
           <img src={Grassroot} alt="Grassroot Projects Logo" className="sidebarlogo" />
         </div>
         <ul className="menu">
-          <li className={`menu-item ${isActive('/dashboard')}`} onClick={() => handleNavigation('/admin/dashboard')}>
-            <span className="icon">📊</span> Dashboard
+          <li 
+            className={`menu-item ${isActive('/admin/dashboard')}`} 
+            onClick={() => handleNavigation('/admin/dashboard')}
+          >
+            <FontAwesomeIcon icon={faChartBar} className="icon" /> Dashboard
           </li>
-          <li className={`menu-item ${isActive('/volunteer')}`} onClick={() => handleNavigation('/admin/volunteer')}>
-            <span className="icon">👤</span> Volunteers
+          <li 
+            className={`menu-item ${isActive('/admin/volunteer')}`} 
+            onClick={() => handleNavigation('/admin/volunteer')}
+          >
+            <FontAwesomeIcon icon={faUser} className="icon" /> Volunteers
           </li>
-          <li className={`menu-item ${isActive('/orders')}`} onClick={() => handleNavigation('/admin/orders')}>
-            <span className="icon">📋</span> Orders Status
+          <li 
+            className={`menu-item ${isActive('/admin/orders')}`} 
+            onClick={() => handleNavigation('/admin/orders')}
+          >
+            <FontAwesomeIcon icon={faClipboardList} className="icon" /> Orders Status
           </li>
-          <li className={`menu-item ${isActive('/updatestock')}`} onClick={() => handleNavigation('/admin/updatestock')}>
-            <span className="icon">🔄</span> Update Stock
+          <li 
+            className={`menu-item ${isActive('/admin/updatestock')}`} 
+            onClick={() => handleNavigation('/admin/updatestock')}
+          >
+            <FontAwesomeIcon icon={faBox} className="icon" /> Update Stock
           </li>
-          <li className={`menu-item ${isActive('/reports')}`} onClick={() => handleNavigation('/admin/reports')}>
-            <span className="icon">📊</span> Report
+          <li 
+            className={`menu-item ${isActive('/admin/reports')}`} 
+            onClick={() => handleNavigation('/admin/reports')}
+          >
+            <FontAwesomeIcon icon={faFileAlt} className="icon" /> Report
           </li>
         </ul>
+        
+        <div className="sidebar-footer">
+          <button className="logout-button" onClick={handleLogout}>
+            <FontAwesomeIcon icon={faSignOutAlt} className="icon" /> Logout
+          </button>
+        </div>
       </aside>
     </>
   );

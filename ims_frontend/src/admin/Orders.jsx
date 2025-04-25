@@ -3,6 +3,24 @@ import React, { useState, useEffect } from 'react';
 import './Orders.css';
 import '../index.css';
 import SideNav from './SideNav';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faSearch, 
+  faBox, 
+  faClock, 
+  faCheckCircle, 
+  faTruck, 
+  faClipboardCheck,
+  faChartBar,
+  faEye,
+  faCalendarAlt,
+  faUser,
+  faTag,
+  faShoppingCart,
+  faBoxOpen,
+  faClipboardList,
+  faTruckLoading
+} from '@fortawesome/free-solid-svg-icons';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -120,7 +138,7 @@ const Orders = () => {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <i className="fas fa-search"></i>
+                <FontAwesomeIcon icon={faSearch} />
               </div>
               
               <div className="filter-buttons">
@@ -128,33 +146,71 @@ const Orders = () => {
                   className={filter === 'all' ? 'active' : ''} 
                   onClick={() => setFilter('all')}
                 >
-                  All Orders
+                  <FontAwesomeIcon icon={faClipboardList} /> All Orders
                 </button>
                 <button 
                   className={filter === 'pending' ? 'active' : ''} 
                   onClick={() => setFilter('pending')}
                 >
-                  Pending
+                  <FontAwesomeIcon icon={faClock} /> Pending
                 </button>
                 <button 
                   className={filter === 'approved' ? 'active' : ''} 
                   onClick={() => setFilter('approved')}
                 >
-                  Approved
+                  <FontAwesomeIcon icon={faClipboardCheck} /> Approved
                 </button>
                 <button 
                   className={filter === 'packed' ? 'active' : ''} 
                   onClick={() => setFilter('packed')}
                 >
-                  Packed
+                  <FontAwesomeIcon icon={faBoxOpen} /> Packed
                 </button>
                 <button 
                   className={filter === 'delivered' ? 'active' : ''} 
                   onClick={() => setFilter('delivered')}
                 >
-                  Delivered
+                  <FontAwesomeIcon icon={faTruck} /> Delivered
                 </button>
               </div>
+            </div>
+          </div>
+          
+          <div className="order-stats">
+            <div className="stat-card">
+              <h3>
+                <FontAwesomeIcon icon={faChartBar} />
+                Total Orders
+              </h3>
+              <p>{orders.length}</p>
+            </div>
+            <div className="stat-card">
+              <h3>
+                <FontAwesomeIcon icon={faClock} />
+                Pending
+              </h3>
+              <p>{orders.filter(o => o.status === 'pending').length}</p>
+            </div>
+            <div className="stat-card">
+              <h3>
+                <FontAwesomeIcon icon={faClipboardCheck} />
+                Approved
+              </h3>
+              <p>{orders.filter(o => o.status === 'approved').length}</p>
+            </div>
+            <div className="stat-card">
+              <h3>
+                <FontAwesomeIcon icon={faBoxOpen} />
+                Packed
+              </h3>
+              <p>{orders.filter(o => o.status === 'packed').length}</p>
+            </div>
+            <div className="stat-card">
+              <h3>
+                <FontAwesomeIcon icon={faTruck} />
+                Delivered
+              </h3>
+              <p>{orders.filter(o => o.status === 'delivered').length}</p>
             </div>
           </div>
           
@@ -176,20 +232,38 @@ const Orders = () => {
                 {filteredOrders.length > 0 ? (
                   filteredOrders.map((order) => (
                     <tr key={order.order_id}>
-                      <td>{order.order_id}</td>
-                      <td>{order.client_id}</td>
+                      <td>
+                        <FontAwesomeIcon icon={faTag} /> {order.order_id}
+                      </td>
+                      <td>
+                        <FontAwesomeIcon icon={faUser} /> {order.client_id}
+                      </td>
                       <td>
                         <div className="items-list">
                           {order.items.map((item, index) => (
-                            <span key={index} className="item-tag">{item}</span>
+                            <span key={index} className="item-tag">
+                              <FontAwesomeIcon icon={faShoppingCart} /> {item}
+                            </span>
                           ))}
                         </div>
                       </td>
-                      <td>{order.order_date}</td>
-                      <td>{order.delivery_date}</td>
-                      <td>{order.created_by}</td>
+                      <td>
+                        <FontAwesomeIcon icon={faCalendarAlt} /> {order.order_date}
+                      </td>
+                      <td>
+                        <FontAwesomeIcon icon={faCalendarAlt} /> {order.delivery_date}
+                      </td>
+                      <td>
+                        <FontAwesomeIcon icon={faUser} /> {order.created_by}
+                      </td>
                       <td>
                         <span className={`status-badge ${getStatusClass(order.status)}`}>
+                          <FontAwesomeIcon icon={
+                            order.status === 'delivered' ? faTruck :
+                            order.status === 'packed' ? faBoxOpen :
+                            order.status === 'approved' ? faClipboardCheck :
+                            faClock
+                          } />
                           {order.status}
                         </span>
                       </td>
@@ -199,7 +273,7 @@ const Orders = () => {
                             className="view-btn"
                             onClick={() => {/* Implement view details */}}
                           >
-                            <i className="fas fa-eye"></i>
+                            <FontAwesomeIcon icon={faEye} />
                           </button>
                           <select
                             value={order.status}
@@ -218,35 +292,13 @@ const Orders = () => {
                 ) : (
                   <tr>
                     <td colSpan="8" className="no-orders">
+                      <FontAwesomeIcon icon={faBox} />
                       No orders found matching your criteria.
                     </td>
                   </tr>
                 )}
               </tbody>
             </table>
-          </div>
-          
-          <div className="order-stats">
-            <div className="stat-card">
-              <h3>Total Orders</h3>
-              <p>{orders.length}</p>
-            </div>
-            <div className="stat-card">
-              <h3>Pending</h3>
-              <p>{orders.filter(o => o.status === 'pending').length}</p>
-            </div>
-            <div className="stat-card">
-              <h3>Approved</h3>
-              <p>{orders.filter(o => o.status === 'approved').length}</p>
-            </div>
-            <div className="stat-card">
-              <h3>Packed</h3>
-              <p>{orders.filter(o => o.status === 'packed').length}</p>
-            </div>
-            <div className="stat-card">
-              <h3>Delivered</h3>
-              <p>{orders.filter(o => o.status === 'delivered').length}</p>
-            </div>
           </div>
         </div>
       </div>

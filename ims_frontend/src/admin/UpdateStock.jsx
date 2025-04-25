@@ -2,6 +2,17 @@
 import React, { useState, useEffect } from 'react';
 import './UpdateStock.css';
 import SideNav from './SideNav';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faSearch, 
+  faPlus, 
+  faTrash, 
+  faBox,
+  faChartBar,
+  faExclamationCircle,
+  faCheckCircle,
+  faClock
+} from '@fortawesome/free-solid-svg-icons';
 
 const UpdateStock = () => {
   // State management
@@ -174,11 +185,11 @@ const UpdateStock = () => {
               
               <div className="stock-actions">
                 <button className="btn-add" onClick={() => setNewItemModal(true)}>
-                  <i className="fas fa-plus"></i> Add Item
+                  <FontAwesomeIcon icon={faPlus} /> Add Item
                 </button>
                 {selectedItems.length > 0 && (
                   <button className="btn-delete" onClick={deleteSelected}>
-                    <i className="fas fa-trash"></i> Delete ({selectedItems.length})
+                    <FontAwesomeIcon icon={faTrash} /> Delete ({selectedItems.length})
                   </button>
                 )}
               </div>
@@ -191,21 +202,21 @@ const UpdateStock = () => {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
-                  <i className="fas fa-search"></i>
+                  <FontAwesomeIcon icon={faSearch} />
                 </div>
                 
                 <div className="filter-buttons">
                   <button className={filter === 'all' ? 'active' : ''} onClick={() => setFilter('all')}>
-                    All
+                    <FontAwesomeIcon icon={faBox} /> All
                   </button>
                   <button className={filter === 'in-stock' ? 'active' : ''} onClick={() => setFilter('in-stock')}>
-                    In Stock
+                    <FontAwesomeIcon icon={faCheckCircle} /> In Stock
                   </button>
                   <button className={filter === 'low-stock' ? 'active' : ''} onClick={() => setFilter('low-stock')}>
-                    Low Stock
+                    <FontAwesomeIcon icon={faExclamationCircle} /> Low Stock
                   </button>
                   <button className={filter === 'out-of-stock' ? 'active' : ''} onClick={() => setFilter('out-of-stock')}>
-                    Out of Stock
+                    <FontAwesomeIcon icon={faClock} /> Out of Stock
                   </button>
                 </div>
               </div>
@@ -213,23 +224,38 @@ const UpdateStock = () => {
             
             <div className="inventory-stats">
               <div className="stat-card">
-                <h3>Total Items</h3>
+                <h3>
+                  <FontAwesomeIcon icon={faBox} />
+                  Total Items
+                </h3>
                 <p>{stockItems.length}</p>
               </div>
               <div className="stat-card">
-                <h3>In Stock</h3>
+                <h3>
+                  <FontAwesomeIcon icon={faCheckCircle} />
+                  In Stock
+                </h3>
                 <p>{stockItems.filter(item => getStockStatus(item) === 'in-stock').length}</p>
               </div>
               <div className="stat-card">
-                <h3>Low Stock</h3>
+                <h3>
+                  <FontAwesomeIcon icon={faExclamationCircle} />
+                  Low Stock
+                </h3>
                 <p>{stockItems.filter(item => getStockStatus(item) === 'low-stock').length}</p>
               </div>
               <div className="stat-card">
-                <h3>Out of Stock</h3>
+                <h3>
+                  <FontAwesomeIcon icon={faClock} />
+                  Out of Stock
+                </h3>
                 <p>{stockItems.filter(item => getStockStatus(item) === 'out-of-stock').length}</p>
               </div>
               <div className="stat-card total-value">
-                <h3>Total Value</h3>
+                <h3>
+                  <FontAwesomeIcon icon={faChartBar} />
+                  Total Value
+                </h3>
                 <p>${calculateTotalValue()}</p>
               </div>
             </div>
