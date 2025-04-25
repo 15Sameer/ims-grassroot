@@ -1,21 +1,21 @@
 import React from "react";
-import styles from "./LoginPage.module.css";
+import "./Login.css"; // Changed import
 import LoginForm from "./LoginForm";
 
 function LoginContainer() {
   return (
-    <div className={styles.formsContainer}>
+    <div className="formsContainer"> {/* Removed styles. prefix */}
       <LoginForm
         type="admin"
         title="Admin Login"
         idLabel="Admin Id"
-        buttonColor={styles.adminButton}
+        buttonColor="adminButton" 
       />
       <LoginForm
         type="volunteer"
         title="Volunteer Login"
         idLabel="Volunteer Id"
-        buttonColor={styles.volunteerButton}
+        buttonColor="volunteerButton"
       />
     </div>
   );

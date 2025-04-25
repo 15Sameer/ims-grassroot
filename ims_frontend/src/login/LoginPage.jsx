@@ -1,14 +1,13 @@
-"use client";
 import React from "react";
-import styles from "./LoginPage.module.css";
+import "./Login.css"; // Changed import
 import LoginHeader from "./LoginHeader";
 import LoginContainer from "./LoginContainer";
 
 function Login() {
   return (
-    <main className={styles.container}>
+    <main className="container"> {/* Removed styles. prefix */}
       <button 
-        className={styles.themeToggleBtn}
+        className="themeToggleBtn" 
         onClick={() => {
           const root = document.documentElement;
           const currentTheme = root.getAttribute('data-theme') || 'light';

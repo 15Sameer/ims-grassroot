@@ -130,6 +130,8 @@
   }
   
   .report-card {
+    width: 100%;
+    padding: 10px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 3px 10px rgba(0,0,0,0.08);
@@ -417,6 +419,10 @@
     
     .reports-grid {
       grid-template-columns: 1fr;
+    }
+    .reports-dashboard
+    {
+      margin-left: 100px;
     }
   }
   

@@ -1,6 +1,5 @@
-// src/login/LoginHeader.jsx
 import React, { useState } from "react";
-import styles from "./LoginPage.module.css";
+import "./Login.css"; // Changed import
 import Grassroot from "../assets/images/Grassroot.png";
 import { MapPin, Sun, Moon } from "lucide-react";
 import { useTheme } from "../ThemeContext";
@@ -14,31 +13,30 @@ function LoginHeader() {
   };
 
   return (
-    <header className={styles.header}>
-      <img src={Grassroot} alt="Grassroot Projects logo" className={styles.logo} />
+    <header className="header"> {/* Removed styles. prefix */}
+      <img src={Grassroot} alt="Grassroot Projects logo" className="logo" /> {/* Removed styles. prefix */}
 
-      {/* Location Selector */}
-      <div className={styles.locationWrapper}>
-        <label className={styles.label}>
-          <MapPin size={16} color="red" className={styles.icon} /> Location:
+      <div className="locationWrapper"> {/* Removed styles. prefix */}
+        <label className="label"> {/* Removed styles. prefix */}
+          <MapPin size={16} color="red" className="icon" /> {/* Removed styles. prefix */}
+          Location:
         </label>
         <button
-          className={`${styles.locationButton} ${selectedLocation === "Washington" ? styles.active : ""}`}
-          onClick={() => handleLocationSelect("Washington")}
+          className={`locationButton ${selectedLocation === "Washington" ? "active" : ""}`} 
+                    onClick={() => handleLocationSelect("Washington")}
         >
           Washington
         </button>
         <button
-          className={`${styles.locationButton} ${selectedLocation === "Indiana" ? styles.active : ""}`}
+          className={`locationButton ${selectedLocation === "Indiana" ? "active" : ""}`}
           onClick={() => handleLocationSelect("Indiana")}
         >
           Indiana
         </button>
       </div>
 
-      {/* Global Theme Toggle */}
-      <div className={styles.themeToggle}>
-        <button onClick={toggleTheme} className={styles.themeToggleBtn}>
+      <div className="themeToggle"> {/* Removed styles. prefix */}
+        <button onClick={toggleTheme} className="themeToggleBtn"> {/* Removed styles. prefix */}
           {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
         </button>
       </div>
