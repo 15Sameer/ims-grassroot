@@ -9,6 +9,17 @@ const {
   WashingtonInventory,
   AllInventory,
 } = require("../models/Inventory");
+const { body } = require('express-validator');
+const { auth, checkRole } = require('../middlewares/auth');
+const {
+  getAllItems,
+  getItem,
+  createItem,
+  updateItem,
+  deleteItem,
+  updateStock,
+  getLowStockItems
+} = require('../controllers/inventoryController');
 
 const router = express.Router();
 
@@ -23,6 +34,16 @@ const getInventoryModel = (location) => {
       return null;
   }
 };
+
+// Validation middleware
+const itemValidation = [
+  body('name').trim().notEmpty().withMessage('Name is required'),
+  body('category').isIn(['food', 'clothing', 'medical', 'electronics', 'other']).withMessage('Invalid category'),
+  body('quantity').isNumeric().withMessage('Quantity must be a number'),
+  body('unit').isIn(['piece', 'kg', 'liter', 'box', 'pack']).withMessage('Invalid unit'),
+  body('location').isIn(['indiana', 'washington']).withMessage('Invalid location'),
+  body('minimumStock').isNumeric().withMessage('Minimum stock must be a number')
+];
 
 // =============================
 // ✅ ADD NEW INVENTORY ITEM (Admin Only)
@@ -183,5 +204,14 @@ router.delete(
     }
   }
 );
+
+// Routes
+router.get('/', auth, getAllItems);
+router.get('/low-stock', auth, getLowStockItems);
+router.get('/:id', auth, getItem);
+router.post('/', [auth, checkRole(['admin', 'manager']), ...itemValidation], createItem);
+router.put('/:id', [auth, checkRole(['admin', 'manager']), ...itemValidation], updateItem);
+router.delete('/:id', [auth, checkRole(['admin'])], deleteItem);
+router.patch('/:id/stock', [auth, checkRole(['admin', 'manager'])], updateStock);
 
 module.exports = router;

@@ -1,63 +1,148 @@
-const jwt = require("jsonwebtoken");
-const { IndianaUser, WashingtonUser, AllUsers } = require("../models/User");
+const User = require('../models/User');
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+const { validationResult } = require('express-validator');
 
-// Helper to choose the right model based on location
-const getUserModelByLocation = (location) => {
-  if (location === "indiana") return IndianaUser;
-  if (location === "washington") return WashingtonUser;
-  throw new Error("Invalid location");
+// Generate JWT Token
+const generateToken = (userId) => {
+  return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '24h' });
 };
 
+// Register new user
 const register = async (req, res) => {
   try {
-    const { name, email, password, role, location } = req.body;
-    const UserModel = getUserModelByLocation(location);
-
-    // Check if user already exists in this location
-    const existingUser = await UserModel.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ msg: "User already exists" });
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
 
-    const newUser = new UserModel({ name, email, password, role, location });
-    await newUser.save();
+    const { username, email, password, role } = req.body;
 
-    // Also add to central all_users collection
-    await new AllUsers({ name, email, password, role, location }).save();
+    // Check if user already exists
+    const existingUser = await User.findOne({ $or: [{ email }, { username }] });
+    if (existingUser) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
 
-    res.status(201).json({ msg: "User registered successfully" });
-  } catch (err) {
-    console.error("Register error:", err.message);
-    res.status(500).json({ msg: "Server error" });
+    // Create new user
+    const user = new User({
+      username,
+      email,
+      password,
+      role: role || 'staff'
+    });
+
+    await user.save();
+
+    // Generate token
+    const token = generateToken(user._id);
+
+    res.status(201).json({
+      message: 'User registered successfully',
+      token,
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Error registering user', error: error.message });
   }
 };
 
+// Login user
 const login = async (req, res) => {
   try {
-    const { email, password, location } = req.body;
-    const UserModel = getUserModelByLocation(location);
+    const { email, password } = req.body;
 
-    const user = await UserModel.findOne({ email });
+    // Find user
+    const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ msg: "Invalid Credentials" });
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
 
+    // Check password
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      return res.status(400).json({ msg: "Invalid Credentials" });
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    const token = jwt.sign(
-      { userId: user._id, role: user.role, location: user.location },
-      process.env.JWT_SECRET || "yoursecret",
-      { expiresIn: "1d" }
-    );
+    // Update last login
+    user.lastLogin = new Date();
+    await user.save();
 
-    res.status(200).json({ token, user });
-  } catch (err) {
-    console.error("Login error:", err.message);
-    res.status(500).json({ msg: "Server error" });
+    // Generate token
+    const token = generateToken(user._id);
+
+    res.json({
+      message: 'Login successful',
+      token,
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Error logging in', error: error.message });
   }
 };
 
-module.exports = { register, login };
+// Request password reset
+const requestPasswordReset = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Generate reset token
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    user.resetPasswordToken = resetToken;
+    user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+    await user.save();
+
+    // TODO: Send email with reset token
+    // For now, just return the token (in production, send via email)
+    res.json({ message: 'Password reset token generated', resetToken });
+  } catch (error) {
+    res.status(500).json({ message: 'Error requesting password reset', error: error.message });
+  }
+};
+
+// Reset password
+const resetPassword = async (req, res) => {
+  try {
+    const { token, newPassword } = req.body;
+
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() }
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid or expired reset token' });
+    }
+
+    user.password = newPassword;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+
+    res.json({ message: 'Password reset successful' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error resetting password', error: error.message });
+  }
+};
+
+module.exports = {
+  register,
+  login,
+  requestPasswordReset,
+  resetPassword
+};

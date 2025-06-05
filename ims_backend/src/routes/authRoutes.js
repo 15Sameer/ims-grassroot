@@ -6,7 +6,7 @@ const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const { IndianaUser, WashingtonUser, AllUsers } = require("../models/User");
 const { authMiddleware } = require("../middlewares/authMiddleware");
-const { register, login } = require("../controllers/authController");
+const { register, login, requestPasswordReset, resetPassword } = require("../controllers/authController");
 
 const router = express.Router();
 
@@ -258,5 +258,15 @@ router.post(
     }
   }
 );
+
+// =============================
+// ✅ REQUEST PASSWORD RESET
+// =============================
+router.post('/request-reset', requestPasswordReset);
+
+// =============================
+// ✅ RESET PASSWORD
+// =============================
+router.post('/reset-password', resetPassword);
 
 module.exports = router;

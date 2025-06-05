@@ -1,68 +1,62 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
-const UserSchema = new mongoose.Schema({
-  name: {
+const userSchema = new mongoose.Schema({
+  username: {
     type: String,
-    required: [true, "Please provide name"],
-    minlength: 3,
-    maxlength: 50,
+    required: true,
+    unique: true,
+    trim: true,
+    minlength: 3
   },
   email: {
     type: String,
-    required: [true, "Please provide email"],
-    match: [
-      /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-      "Please provide a valid email",
-    ],
+    required: true,
     unique: true,
+    trim: true,
+    lowercase: true
   },
   password: {
     type: String,
-    required: [true, "Please provide password"],
-    minlength: 6,
+    required: true,
+    minlength: 6
   },
   role: {
     type: String,
-    enum: [
-      "admin",
-      "client",
-      "volunteer1",
-      "volunteer2",
-      "volunteer3",
-      "volunteer4",
-      "volunteer5",
-    ],
-    default: "client",
+    enum: ['admin', 'manager', 'staff'],
+    default: 'staff'
   },
-  location: {
-    type: String,
-    enum: ["indiana", "washington"],
-    required: true,
+  isActive: {
+    type: Boolean,
+    default: true
+  },
+  lastLogin: {
+    type: Date
   },
   resetPasswordToken: String,
-  resetPasswordExpires: Date,
+  resetPasswordExpires: Date
+}, {
+  timestamps: true
 });
 
 // Hash password before saving
-UserSchema.pre("save", async function () {
-  if (!this.isModified("password")) return;
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
+userSchema.pre('save', async function(next) {
+  if (!this.isModified('password')) return next();
+  
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
-// Compare password method
-UserSchema.methods.comparePassword = async function (candidatePassword) {
-  return await bcrypt.compare(candidatePassword, this.password);
+// Method to compare password
+userSchema.methods.comparePassword = async function(candidatePassword) {
+  return bcrypt.compare(candidatePassword, this.password);
 };
 
-// Create different models
-const IndianaUser = mongoose.model("IndianaUser", UserSchema, "users_indiana");
-const WashingtonUser = mongoose.model(
-  "WashingtonUser",
-  UserSchema,
-  "users_washington"
-);
-const AllUsers = mongoose.model("AllUsers", UserSchema, "all_users");
+const User = mongoose.model('User', userSchema);
 
-module.exports = { IndianaUser, WashingtonUser, AllUsers };
+module.exports = User;

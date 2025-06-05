@@ -2,8 +2,10 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
+const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
 const connectDB = require("./config/db");
+const errorHandler = require("./middlewares/errorHandler");
 
 // Initialize Express App
 const app = express();
@@ -12,6 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
+app.use(morgan("dev"));
 
 // Rate Limiting
 const limiter = rateLimit({
@@ -54,10 +57,7 @@ app.use("/api/inventory", inventoryRoutes); // Inventory Management
 // =============================
 // ✅ Error Handling Middleware
 // =============================
-app.use((err, req, res, next) => {
-  console.error("❌ Server Error:", err.stack);
-  res.status(500).json({ msg: "Internal Server Error" });
-});
+app.use(errorHandler);
 
 // Start Server
 const PORT = process.env.PORT || 5000;

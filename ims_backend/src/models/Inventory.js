@@ -2,18 +2,70 @@ const mongoose = require("mongoose");
 
 const InventorySchema = new mongoose.Schema(
   {
-    name: { type: String, required: true }, // Item name
-    description: { type: String }, // Item description
-    quantity: { type: Number, required: true, min: 0 }, // Available stock
-    category: { type: String, required: true }, // Item category (e.g., clothing, food)
+    name: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    description: {
+      type: String,
+      trim: true
+    },
+    category: {
+      type: String,
+      required: true,
+      enum: ['food', 'clothing', 'medical', 'electronics', 'other']
+    },
+    quantity: {
+      type: Number,
+      required: true,
+      min: 0
+    },
+    unit: {
+      type: String,
+      required: true,
+      enum: ['piece', 'kg', 'liter', 'box', 'pack']
+    },
     location: {
       type: String,
-      enum: ["indiana", "washington"], // Ensure lowercase
       required: true,
-    }, // Location-specific inventory
+      enum: ['indiana', 'washington']
+    },
+    minimumStock: {
+      type: Number,
+      required: true,
+      min: 0
+    },
+    supplier: {
+      name: String,
+      contact: String,
+      email: String
+    },
+    lastRestocked: {
+      type: Date,
+      default: Date.now
+    },
+    status: {
+      type: String,
+      enum: ['in-stock', 'low-stock', 'out-of-stock'],
+      default: 'in-stock'
+    },
+    notes: String
   },
-  { timestamps: true } // Adds createdAt & updatedAt
+  { timestamps: true }
 );
+
+// Update status based on quantity
+InventorySchema.pre('save', function(next) {
+  if (this.quantity <= 0) {
+    this.status = 'out-of-stock';
+  } else if (this.quantity <= this.minimumStock) {
+    this.status = 'low-stock';
+  } else {
+    this.status = 'in-stock';
+  }
+  next();
+});
 
 console.log(
   "Inventory Schema Location Enum:",
