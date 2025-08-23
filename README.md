@@ -72,8 +72,8 @@ To get started with the frontend, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/INS_grassrootprojects.git
-   cd INS_grassrootprojects/frontend/grims
+   git clone (https://github.com/15Sameer/ims-grassroot)
+   cd IMS_grassrootprojects/frontend/grims
 Install dependencies:
 
 npm install
