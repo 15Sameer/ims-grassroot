@@ -84,7 +84,7 @@ Open your browser and navigate to http://localhost:3000 to see the application i
 
 Project Structure
 The frontend project structure is as follows:
-
+```
 frontend/grims/
 ├── src/
 │   ├── App.css
@@ -141,9 +141,11 @@ ims_backend/src/
 │   ├── inventoryRoutes.js
 │   └── protectedRoutes.js
 └── server.js
+```
 Contributing
 We welcome contributions to this project! Please follow these steps:
 
+```
 Fork the repository.
 Create a new branch (git checkout -b feature/YourFeature).
 Make your changes and commit them (git commit -m 'Add some feature').
