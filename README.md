@@ -1,4 +1,4 @@
-# INS_grassrootprojects
+# IMS_grassrootprojects
 
 ## Overview
 
@@ -36,23 +36,9 @@ Feel free to submit issues or pull requests to improve the projects.
 
 License
 This project is licensed under the MIT License.
+```
 
-
-### Steps to Update:
-
-1. Open the file located at `README.md`.
-2. Replace the existing content with the updated content provided above.
-3. Save the changes.
-
-This update provides a clearer structure and includes information about the frontend and backend projects, making it easier for users to understand the purpose of the repository.
-12:44 PM
-
-
-Generate a detailed Github readme file
-12:53 PM
-Certainly! Below is a detailed README file template that you can use for your GitHub repository. You can customize it further based on your project's specific needs.
-
-# INS_grassrootprojects
+# IMS_grassrootprojects
 
 ## Overview
 
